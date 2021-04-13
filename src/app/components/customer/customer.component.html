@@ -1,18 +1,14 @@
-<div *ngIf="dataLoaded == false" class="spinner-border text-danger" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-  <table *ngIf="dataLoaded == true" class="table">
-    <thead>
-      <tr>
-        <!--<th>Id</th>-->
-        <!--<th>Kullanıcı Id</th>-->
-        <th>Şirket Adı</th>
-      </tr>
-    </thead>
-    <tr *ngFor="let customer of customers">
-      <!--<td>{{ customer.id }}</td>-->
-      <!--<td>{{ customer.userId }}</td>-->
-      <td>{{ customer.companyName }}</td>
+<table class="table">
+  <thead>
+    <tr>
+      <!--<th>Id</th>-->
+      <th>ÜyeId</th>
+      <th>Şirket Adı</th>
     </tr>
-  </table>
-  
+  </thead>
+  <tr *ngFor="let customer of customers">
+    <!--<td>{{ customer.id }}</td>-->
+    <td>{{ customer.userId }}</td>
+    <td>{{ customer.companyName }}</td>
+  </tr>
+</table>

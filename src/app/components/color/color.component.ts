@@ -5,11 +5,13 @@ import { ColorService } from 'src/app/services/color.service';
 @Component({
   selector: 'app-color',
   templateUrl: './color.component.html',
-  styleUrls: ['./color.component.css']
+  styleUrls: ['./color.component.css'],
 })
 export class ColorComponent implements OnInit {
-  colors:Color[]=[];
+  colors: Color[] = [];
+  currentColor: Color | null;
   dataLoaded = false;
+  filterText = '';
 
   constructor(private colorService: ColorService) {}
 
@@ -19,8 +21,26 @@ export class ColorComponent implements OnInit {
 
   getColor() {
     this.colorService.getColors().subscribe((response) => {
-      this.colors = response.data
+      this.colors = response.data;
       this.dataLoaded = true;
     });
   }
+
+  setCurrentColor(color: Color) {
+    this.currentColor = color;
+  }
+
+  getColorClass(color: Color) {
+    if (color == this.currentColor) {
+      return 'list-group-item active';
+    } else {
+      return 'list-group-item';
+    }
+  }
+
+  clearCurrentColor() {
+    this.currentColor = null;
+  }
+
+
 }

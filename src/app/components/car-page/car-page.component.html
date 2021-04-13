@@ -1,0 +1,64 @@
+<div
+  id="carouselExampleIndicators"
+  class="carousel slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-inner">
+    <div
+      *ngFor="let carImage of carImages; let i = index"
+      class="carousel-item {{ i == 0 ? 'active' : null }}"
+    >
+      <br />
+      <img
+        src="https://localhost:44390/{{ carImage.imagePath }}"
+        class="mx-auto d-block"
+        style="width: 850px; height: 400px"
+      />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+     <table *ngIf="dataLoaded == true" class="table">
+      <thead>
+        <tr>
+         <!--<th>Id</th>-->
+          <th>Marka</th>
+          <th>Araç</th>
+          <th>Renk</th>
+          <th>Model</th>
+          <th>Günlük Fiyat</th>
+          <th>Açıklama</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let detail of carDetail">
+          <!--<td>{{detail.id}}</td>-->
+          <td>{{detail.brandName}}</td>
+          <td>{{detail.carName}}</td>
+          <td>{{detail.colorName}}</td>
+          <td>{{detail.modelYear}}</td>
+          <td>{{detail.dailyPrice}}</td>
+          <td>{{detail.description}}</td>
+        </tr>
+      </tbody>
+    </table>
