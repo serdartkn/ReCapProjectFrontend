@@ -22,35 +22,32 @@
       <div class="row  col-md-12 mb-3">
         <div class="col-md-4">
         <select [(ngModel)]="brandNameFilter" class="form-select" aria-label="Default select example">
-          <option selected>Marka Seçimi</option>
-          <option  *ngFor="let brand of brands" [value]="brand.brandName" selected="{{selectedBrand(brand.brandName)}}">{{ brand.brandName }} </option>
+          <option  *ngFor="let brand of brands" [value]="brand.brandName" selected="{{selectedBrand(brand.brandName)}}">{{ brand.brandName  }} </option>
         </select>
         </div>
         
         <div class="col-md-4">
         <select [(ngModel)]="colorNameFilter" class="form-select" aria-label="Default select example">
-          <option selected>Renk Seçimi</option>
           <option *ngFor="let color of colors" [value]="color.colorName" selected="{{selectedColor(color.colorName)}}" >{{ color.colorName }}</option>
         </select>
         </div>
       
         <div class=" row-cols-1  col-md-2 ">
-        <button routerLink="/{{brandNameFilter}}/{{colorNameFilter}}" 
+        <a routerLink="/cars/filter/{{brandNameFilter}}/{{colorNameFilter}}" 
         class="btn btn-success">
       Filtrele
-        </button>
-      </div>
-      
+    </a>
+      </div>      
       
       </div>
       
       <div class="row row-cols-1 row-cols-md-3 g-2">
       
         <div *ngFor="let carDetailDto of carsDetails |filterPipe:filterText" class="col">
-          <div class="card" style="width: 18rem">
+          <div class="card" style="width: 18rem;">
             <img
-              height="280"
-              class="card-img-top"
+
+              class="card-img-top h-auto w-auto"
               src="https://localhost:44390/{{ carDetailDto.imagePath }}"
               alt="Card image cap"
             />
@@ -65,7 +62,7 @@
               <li
                 routerLink="/cars/detail/{{carDetailDto.carId}}"
                 class="btn btn-primary"
-              >Aracı İncele
+      >Aracı İncele        
               </li>
             </div>
           </div>
@@ -78,6 +75,3 @@
       
     </div>
   </div>
-
-
-

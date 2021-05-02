@@ -3,6 +3,17 @@
   class="carousel slide"
   data-bs-ride="carousel"
 >
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      *ngFor="let carImage of carImages; let i = index"
+      [attr.data-bs-slide-to]="i"
+      [class]="i == 0 ? 'active' : ''"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+  </div>
   <div class="carousel-inner">
     <div
       *ngFor="let carImage of carImages; let i = index"
@@ -11,10 +22,9 @@
       <br />
       <img
         src="https://localhost:44390/{{ carImage.imagePath }}"
-        class="mx-auto d-block"
+        class="mx-auto d-block h-auto w-auto"
         style="width: 850px; height: 400px"
       />
-      
     </div>
   </div>
   <button
@@ -37,29 +47,62 @@
   </button>
 </div>
 
+<table *ngIf="dataLoaded == true" class="table">
+  <thead>
+    <tr>
+      <!--<th>Id</th>-->
+      <th class="text-center">Marka</th>
+      <th class="text-center">Araç</th>
+      <th class="text-center">Renk</th>
+      <th class="text-center">Model</th>
+      <th class="text-center">Günlük Fiyat</th>
+      <th class="text-center">Açıklama</th>
+      <th></th>
+    </tr>
+  </thead>
 
-     <table *ngIf="dataLoaded == true" class="table">
-      <thead>
+
+
+
+  <tbody >
         <tr>
-         <!--<th>Id</th>-->
-          <th>Marka</th>
-          <th>Araç</th>
-          <th>Renk</th>
-          <th>Model</th>
-          <th>Günlük Fiyat</th>
-          <th>Açıklama</th>
-        </tr>
-      </thead>
+         <!-- <td>{{detail.id}}</td> -->
+          <td class="text-center">{{carDetailDto.brandName}}</td>
+          <td class="text-center">{{carDetailDto.carName}}</td>
+          <td class="text-center">{{carDetailDto.colorName}}</td>
+          <td class="text-center">{{carDetailDto.modelYear}}</td>
+          <td class="text-center">{{carDetailDto.dailyPrice}}₺</td>
+          <td class="text-center">{{carDetailDto.description}}</td>
+          <div *ngIf="checkCarDate==true; then rentButton else denyButton" class="text-center">   </div>
+          <ng-template #rentButton ><td><app-rental-add [carDetailDto]="carDetailDto"></app-rental-add></td></ng-template> 
+          <!-- <td><ng-template #rentButton><button type="button" class="btn btn-success  text-center" >Hemen Kirala</button></ng-template></td> -->
+          <ng-template #denyButton><td><button type="button" 
+            class="btn btn-danger disabled" >Already Rented</button>
+          </td></ng-template>
 
-      <tbody>
-        <tr *ngFor="let detail of carDetail">
-          <!--<td>{{detail.id}}</td>-->
-          <td>{{detail.brandName}}</td>
-          <td>{{detail.carName}}</td>
-          <td>{{detail.colorName}}</td>
-          <td>{{detail.modelYear}}</td>
-          <td>{{detail.dailyPrice}}</td>
-          <td>{{detail.description}}</td>
         </tr>
       </tbody>
-    </table>
+</table>
+
+ <!-- <div *ngFor="let detail of carDetail" class="row"
+>
+  <div class="col">{{ detail.brandName }}</div>
+  <div class="col">{{ detail.carName }}</div>
+  <div class="col">{{ detail.colorName }}</div>
+  <div class="col">{{ detail.modelYear }}</div>
+  <div class="col">{{ detail.dailyPrice }}₺</div>
+  <div class="col">{{ detail.description }}</div>
+  <div
+    *ngIf="checkCarDate == true; then rentButton; else denyButton"
+    class="col"
+  ></div>
+  <div class="col">
+    <ng-template #rentButton> <app-rental-add></app-rental-add></ng-template>
+    <td><ng-template #rentButton><button type="button" class="btn btn-success  text-center" >Hemen Kirala</button></ng-template></td>
+    <ng-template #denyButton
+      ><button type="button" class="btn btn-danger disabled">
+        Already Rented
+      </button></ng-template
+    >
+  </div>
+</div> -->

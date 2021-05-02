@@ -4,6 +4,9 @@ import { CarImageService } from 'src/app/services/car-image.service';
 import { CarImage } from 'src/app/models/carImage';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarDetailDto } from 'src/app/models/carDetailDto';
+import { RentalDetailService } from 'src/app/services/rental-detail.service';
+import { RentalDetailDto } from 'src/app/models/rentalDetailDto';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-car-page',
@@ -14,35 +17,45 @@ export class CarPageComponent implements OnInit {
   carImages: CarImage[] = [];
   dataLoaded = false;
   index: number = 0;
-  carDetail:CarDetailDto[] = [];
+  carDetailDto: CarDetailDto;
+  checkCarDate:boolean
 
   constructor(
     private carDetailService: CarDetailService,
     private activatedRoute: ActivatedRoute,
-    private carImageService: CarImageService
+    private carImageService: CarImageService,
+    private rentalDetailService: RentalDetailService,
+    private toastrService: ToastrService
   ) {}
-
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.activatedRoute.params.subscribe((params) => {
-      if (params['carId']) {
+      if ((params['carId'], params['carId'])) {
         this.getCarImagesById(params['carId']);
-        this.getCarDetailById(params["carId"])
+        this.getCarDetailById(params['carId']);
       }
+      
+      this.checkCar(params["carId"]);
     });
   }
-
+  
   getCarImagesById(carId: number) {
     this.carImageService.getCarImagesById(carId).subscribe((response) => {
       this.carImages = response.data;
       this.dataLoaded = true;
-      console.log(response.data);
     });
   }
 
   getCarDetailById(carId: number) {
     this.carDetailService.getCarDetailById(carId).subscribe((response) => {
-      this.carDetail = response.data;
+      this.carDetailDto = response.data[0];
       this.dataLoaded = true;
     });
-}
+  }
+
+  checkCar(carId:number){
+    this.rentalDetailService.checkCar(carId).subscribe((response) => {
+      this.checkCarDate=response
+    });
+  }
+
 }
